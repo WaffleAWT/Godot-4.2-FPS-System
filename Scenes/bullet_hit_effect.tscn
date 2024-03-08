@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://wb2q2jl8qbi3"]
+
+[ext_resource type="Script" path="res://Scripts/bullet_hit_effect.gd" id="1_5py7n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jqsk8"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+texture_filter = 2
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_7dtay"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qpmj0"]
+curve = SubResource("Curve_7dtay")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2nxxb"]
+spread = 180.0
+initial_velocity_min = 15.0
+initial_velocity_max = 30.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_qpmj0")
+
+[sub_resource type="SphereMesh" id="SphereMesh_0o2n7"]
+radius = 0.063
+height = 0.125
+
+[node name="BulletHitEffect" type="GPUParticles3D"]
+material_override = SubResource("StandardMaterial3D_jqsk8")
+cast_shadow = 0
+emitting = false
+amount = 16
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_2nxxb")
+draw_pass_1 = SubResource("SphereMesh_0o2n7")
+script = ExtResource("1_5py7n")

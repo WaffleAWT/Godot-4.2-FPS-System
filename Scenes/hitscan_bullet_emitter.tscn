@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dk6mpiwg1s7gp"]
+
+[ext_resource type="Script" path="res://Scripts/hitscan_bullet_emitter.gd" id="1_i3xvb"]
+[ext_resource type="PackedScene" uid="uid://wb2q2jl8qbi3" path="res://Scenes/bullet_hit_effect.tscn" id="2_54136"]
+
+[node name="HitscanBulletEmitter" type="Node3D"]
+script = ExtResource("1_i3xvb")
+bullet_hit_effect = ExtResource("2_54136")

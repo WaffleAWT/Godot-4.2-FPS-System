@@ -1,0 +1,276 @@
+[gd_scene load_steps=22 format=3 uid="uid://mviwpmmsvnx"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_ocpxm"]
+[ext_resource type="Script" path="res://Scripts/weapons_manager.gd" id="2_7qr84"]
+[ext_resource type="Material" uid="uid://s7b6f3xpqklk" path="res://Data/Metal.tres" id="3_7vn7r"]
+[ext_resource type="Script" path="res://Scripts/weapon.gd" id="4_j00ak"]
+[ext_resource type="PackedScene" uid="uid://dk6mpiwg1s7gp" path="res://Scenes/hitscan_bullet_emitter.tscn" id="5_viw22"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gftkt"]
+height = 1.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_q0s55"]
+material = ExtResource("3_7vn7r")
+size = Vector3(0.125, 0.125, 0.125)
+
+[sub_resource type="Animation" id="Animation_mj03m"]
+resource_name = "idle"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_r4xvc"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0.15), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rdj5a"]
+_data = {
+"attack": SubResource("Animation_r4xvc"),
+"idle": SubResource("Animation_mj03m")
+}
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ppyb4"]
+material = ExtResource("3_7vn7r")
+top_radius = 0.063
+bottom_radius = 0.063
+height = 0.125
+
+[sub_resource type="Animation" id="Animation_hd1xm"]
+resource_name = "idle"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_y3wk0"]
+resource_name = "attack"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0.15), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rsddd"]
+_data = {
+"attack": SubResource("Animation_y3wk0"),
+"idle": SubResource("Animation_hd1xm")
+}
+
+[sub_resource type="PrismMesh" id="PrismMesh_kgjtu"]
+material = ExtResource("3_7vn7r")
+size = Vector3(0.125, 0.125, 0.125)
+
+[sub_resource type="Animation" id="Animation_lmor3"]
+resource_name = "idle"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_q1acu"]
+resource_name = "attack"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0.15), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ni7mg"]
+_data = {
+"attack": SubResource("Animation_q1acu"),
+"idle": SubResource("Animation_lmor3")
+}
+
+[sub_resource type="Animation" id="Animation_md2qi"]
+resource_name = "idle"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Weapons:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fs6rl"]
+resource_name = "move"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Weapons:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.05), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_htep3"]
+_data = {
+"idle": SubResource("Animation_md2qi"),
+"move": SubResource("Animation_fs6rl")
+}
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera_controller", "weapons_manager")]
+script = ExtResource("1_ocpxm")
+camera_controller = NodePath("CameraController/Camera3D")
+weapons_manager = NodePath("CameraController/Camera3D/WeaponsManager")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_gftkt")
+
+[node name="CameraController" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+
+[node name="WeaponsManager" type="Node3D" parent="CameraController/Camera3D" node_paths=PackedStringArray("animator")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.251563, -0.118986, -0.314877)
+script = ExtResource("2_7qr84")
+animator = NodePath("AnimationPlayer")
+
+[node name="Weapons" type="Node3D" parent="CameraController/Camera3D/WeaponsManager"]
+
+[node name="Weapon1" type="MeshInstance3D" parent="CameraController/Camera3D/WeaponsManager/Weapons" node_paths=PackedStringArray("animator", "bullet_emitters_base")]
+cast_shadow = 0
+mesh = SubResource("BoxMesh_q0s55")
+script = ExtResource("4_j00ak")
+damage = 3.0
+ammo = -1
+attack_rate = 1.0
+animator = NodePath("AnimationPlayer")
+bullet_emitters_base = NodePath("BulletEmitters")
+
+[node name="BulletEmitters" type="Node3D" parent="CameraController/Camera3D/WeaponsManager/Weapons/Weapon1"]
+
+[node name="HitscanBulletEmitter" parent="CameraController/Camera3D/WeaponsManager/Weapons/Weapon1/BulletEmitters" instance=ExtResource("5_viw22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0680716)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CameraController/Camera3D/WeaponsManager/Weapons/Weapon1"]
+libraries = {
+"": SubResource("AnimationLibrary_rdj5a")
+}
+autoplay = "idle"
+
+[node name="Weapon2" type="MeshInstance3D" parent="CameraController/Camera3D/WeaponsManager/Weapons" node_paths=PackedStringArray("animator", "bullet_emitters_base")]
+visible = false
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_ppyb4")
+script = ExtResource("4_j00ak")
+automatic = true
+damage = 1.0
+ammo = 90
+attack_rate = 0.1
+animator = NodePath("AnimationPlayer")
+bullet_emitters_base = NodePath("BulletEmitters")
+
+[node name="BulletEmitters" type="Node3D" parent="CameraController/Camera3D/WeaponsManager/Weapons/Weapon2"]
+
+[node name="HitscanBulletEmitter" parent="CameraController/Camera3D/WeaponsManager/Weapons/Weapon2/BulletEmitters" instance=ExtResource("5_viw22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0635646)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CameraController/Camera3D/WeaponsManager/Weapons/Weapon2"]
+libraries = {
+"": SubResource("AnimationLibrary_rsddd")
+}
+autoplay = "idle"
+
+[node name="Weapon3" type="MeshInstance3D" parent="CameraController/Camera3D/WeaponsManager/Weapons" node_paths=PackedStringArray("animator", "bullet_emitters_base")]
+visible = false
+cast_shadow = 0
+mesh = SubResource("PrismMesh_kgjtu")
+script = ExtResource("4_j00ak")
+damage = 2.0
+ammo = 30
+attack_rate = 0.6
+animator = NodePath("AnimationPlayer")
+bullet_emitters_base = NodePath("BulletEmitters")
+
+[node name="BulletEmitters" type="Node3D" parent="CameraController/Camera3D/WeaponsManager/Weapons/Weapon3"]
+
+[node name="HitscanBulletEmitter" parent="CameraController/Camera3D/WeaponsManager/Weapons/Weapon3/BulletEmitters" instance=ExtResource("5_viw22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0673938)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CameraController/Camera3D/WeaponsManager/Weapons/Weapon3"]
+libraries = {
+"": SubResource("AnimationLibrary_ni7mg")
+}
+autoplay = "idle"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CameraController/Camera3D/WeaponsManager"]
+libraries = {
+"": SubResource("AnimationLibrary_htep3")
+}
+autoplay = "idle"
+playback_default_blend_time = 1.0
+
+[node name="FirePoint" type="Node3D" parent="CameraController/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)

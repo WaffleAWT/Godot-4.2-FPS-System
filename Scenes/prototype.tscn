@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://co3374rv4rq2p"]
+
+[ext_resource type="PackedScene" uid="uid://mviwpmmsvnx" path="res://Scenes/player.tscn" id="1_ho6fo"]
+[ext_resource type="Texture2D" uid="uid://ctd2erk5tk0xv" path="res://Assets/Ground.png" id="2_crh04"]
+[ext_resource type="Texture2D" uid="uid://dnpdng8rvbsxm" path="res://Assets/Brick.png" id="3_b8aao"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bokjq"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_7qjh0"]
+sky_material = SubResource("ProceduralSkyMaterial_bokjq")
+
+[sub_resource type="Environment" id="Environment_6g3gj"]
+background_mode = 2
+sky = SubResource("Sky_7qjh0")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ddjm7"]
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h1fo2"]
+albedo_texture = ExtResource("2_crh04")
+metallic_specular = 0.0
+uv1_triplanar = true
+texture_filter = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u4soo"]
+albedo_texture = ExtResource("3_b8aao")
+metallic_specular = 0.0
+uv1_triplanar = true
+texture_filter = 2
+
+[node name="Prototype" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6g3gj")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_ho6fo")]
+
+[node name="Ground" type="CSGMesh3D" parent="."]
+use_collision = true
+mesh = SubResource("PlaneMesh_ddjm7")
+material = SubResource("StandardMaterial3D_h1fo2")
+
+[node name="Wall" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -12)
+use_collision = true
+size = Vector3(5, 3, 1)
+material = SubResource("StandardMaterial3D_u4soo")
